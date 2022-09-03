@@ -6,19 +6,23 @@ import {
   ActivityIndicator,
   FlatList,
   Pressable,
+  Linking,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LinearGradient from 'react-native-linear-gradient';
+import Svg, {
+  Circle,
+  Line,
+} from 'react-native-svg';
 
 // GEORGE PARKS I LOVE URL!
-
+const debugURL = "https://wadaily.co/api/schedule?date=9-2-22";
 const apiURL = "https://wadaily.co/api/schedule";
 const wadailyRed = "#E9281F"
 const wadailyOffRed ="#FFFFF"
 const offWhite = "#f3f2f8"
 const onPress = '#89898c'
-const buttonFontSize = 18
 
 
 
@@ -56,7 +60,7 @@ const App = () => {
 
   useEffect(() => {
     fetchData();
-    fetch(apiURL)
+    fetch(debugURL)
       .then((response) => response.json()) 
       .then((json) => {
         setData(json.schedule);
@@ -148,17 +152,39 @@ function HomeScreen({ navigation }) {
                   <View style ={styles.timeArea}>
                     <FlatList 
                       data={data}
-                      scrollsToTop={false}
-                      keyExtractor={({ id }, index) => id}
+                      scrollsToTop={true}
+                      bounces={true}
+                      /* Bounces is how u do the overscroll thing so idk ask some ppl if they want it */
+                      /** Guys i removed this 
+                       * idk if important but leaving here just in case ;)
+                       * keyExtractor={({ id }, index) => id}
+                      */ 
                       ItemSeparatorComponent={ItemDivider}
                       renderItem={({ item }) => (
-                        <View style={{ paddingBottom: 10, paddingTop: 10,}}>
-                          <Text style={styles.periodName}>
-                            {item.name}
-                          </Text>
-                          <Text style={styles.classTime}>
-                            {item.startTime} to {item.endTime}
-                          </Text>
+                        <View>
+                          
+                          <View style={{ flex: 1, flexDirection: 'row',}}>
+                            <View style={{position: "absolute"}}>
+                              
+                            <Svg height="100" width="50">
+                              <Line x1="25" y1="0" x2="25" y2="110" stroke="#E9281F" strokeWidth="2" />
+                              <Circle cx="25" cy="40" r="6" fill="#E9281F" />
+                              <Line x1="25" y1="40" x2="25" y2="110" stroke="#E9281F" strokeWidth="2" />
+                            </Svg>
+
+                            </View>
+                            <View>
+                              <View style={{ paddingBottom: 10, paddingTop: 10,}}>
+                              <Text style={styles.periodName}>
+                                {item.name}
+                              </Text>
+                              <Text style={styles.classTime}>
+                                {item.startTime} to {item.endTime}
+                              </Text>
+                            </View>
+                            </View>
+                            
+                          </View>
                         </View>
                       )}
                     />
@@ -177,7 +203,7 @@ function HomeScreen({ navigation }) {
                       <Pressable 
                         children={({ pressed }) => (
                         <Text style={{ color: pressed ? onPress : '#222'}}>
-                          Schedule
+                          Home
                         </Text>
                       )}/>
                     </View>
@@ -200,6 +226,29 @@ function HomeScreen({ navigation }) {
                         </Text>
                       )}/>
                     </View>
+                    
+                    <View style = {styles.button}>
+                          <Text>   </Text>
+                    </View>
+                    
+                    <View style = {styles.button}>
+                  
+                      <Pressable onPress={() => navigation.navigate('Settings')}
+                        children={({ pressed }) => (
+                        
+                        <Text style={{ color: pressed ? onPress : '#222', fontSize: 25}}>
+                          ⚙️
+                        </Text>
+                      )}/>
+                      <Pressable onPress={() => navigation.navigate('Settings')}
+                        children={({ pressed }) => (
+                        <Text style={{ color: pressed ? onPress : '#222'}}>
+                          More
+                        </Text>
+                      )}/>
+                    </View>
+
+                    
 
                     
                   </View>  
@@ -245,21 +294,122 @@ function LunchScreen({ navigation }) {
                       keyExtractor={item => item.id}
 
                     />
+                    <Text>__</Text>
                   </View>
                 
                   <View style = {styles.footer}>
                     <View style = {styles.button}>
 
-                      <Pressable  onPress={() => navigation.goBack()}
+                      <Pressable  onPress={() => navigation.navigate('Home')}
                         children={({ pressed }) => (
                         <Text style={{ color: pressed ? onPress : '#222', fontSize: 25}}>
                           🗓️
                         </Text>
                       )}/>
-                      <Pressable onPress={() => navigation.goBack()}
+                      <Pressable onPress={() => navigation.navigate('Home')}
                         children={({ pressed }) => (
                         <Text style={{ color: pressed ? onPress : '#222'}}>
-                          Schedule
+                          Home
+                        </Text>
+                      )}/>
+                    </View>
+                    <View style = {styles.button}>
+                          <Text>   </Text>
+                    </View>
+                    
+                    
+                    <View style = {styles.button}>
+                  
+                      <Pressable onPress={() => navigation.navigate('Lunch')}
+                        children={({ pressed }) => (
+                        
+                        <Text style={{ color: pressed ? onPress : '#222', fontSize: 25}}>
+                          🍱 
+                        </Text>
+                      )}/>
+                      <Pressable onPress={() => navigation.navigate('Lunch')}
+                        children={({ pressed }) => (
+                        <Text style={{ color: pressed ? onPress : '#222'}}>
+                          Lunch
+                        </Text>
+                      )}/>
+                    </View>
+
+                    <View style = {styles.button}>
+                          <Text>   </Text>
+                    </View>
+                    
+                    <View style = {styles.button}>
+                  
+                      <Pressable onPress={() => navigation.navigate('Settings')}
+                        children={({ pressed }) => (
+                        
+                        <Text style={{ color: pressed ? onPress : '#222', fontSize: 25}}>
+                          ⚙️
+                        </Text>
+                      )}/>
+                      <Pressable onPress={() => navigation.navigate('Settings')}
+                        children={({ pressed }) => (
+                        <Text style={{ color: pressed ? onPress : '#222'}}>
+                          More
+                        </Text>
+                      )}/>
+                    </View>
+                    
+                    
+                    
+
+                    
+                    
+                  </View>  
+              </View>
+            )}
+            
+          </View>
+
+  );
+}
+function SettingsScreen({ navigation }) {
+  return (
+    <View style={styles.container}>
+        
+
+        <View style={{width:400, height: '10%', borderRadius: 0, alignItems: 'center', justifyContent: 'center'}}>
+                <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#fbbd25', '#ee4447', '#ec4897']} style={styles.gradient}>
+                  <Pressable onPress={() => navigation.navigate('Home')}
+                        children={({ pressed }) => (
+                        <Text style={styles.settingsBackButton}>
+                          ←
+                        </Text>
+                  )}/>
+                  <Text style={styles.settingsTitle}>Settings</Text>
+                  
+                  
+                </LinearGradient>
+        </View>
+        <Text> {"\n"}Made with ❤️ by Will Varner{"\n"}</Text>
+        <Text style={{color: 'blue'}}
+              onPress={() => Linking.openURL('https://wadaily.co/credits.html')}>
+          View Credits @ WADaily.co
+        </Text>
+
+        <Text> {"\n"}Check back later for more features!</Text>
+
+
+
+        <View style = {styles.footer}>
+                    <View style = {styles.button}>
+
+                    <Pressable onPress={() => navigation.navigate('Home')}
+                        children={({ pressed }) => (
+                        <Text style={{ color: pressed ? onPress : '#222', fontSize: 25}}>
+                          🗓️ 
+                        </Text>
+                      )}/>
+                      <Pressable onPress={() => navigation.navigate('Home')}
+                        children={({ pressed }) => (
+                        <Text style={{ color: pressed ? onPress : '#222'}}>
+                          Home
                         </Text>
                       )}/>
                     </View>
@@ -283,15 +433,36 @@ function LunchScreen({ navigation }) {
                       )}/>
                     </View>
                     
-                  </View>  
-              </View>
-            )}
+                    <View style = {styles.button}>
+                          <Text>   </Text>
+                    </View>
+                    
+                    <View style = {styles.button}>
+                  
+                      <Pressable onPress={() => navigation.navigate('Settings')}
+                        children={({ pressed }) => (
+                        
+                        <Text style={{ color: pressed ? onPress : '#222', fontSize: 25}}>
+                          ⚙️
+                        </Text>
+                      )}/>
+                      <Pressable onPress={() => navigation.navigate('Settings')}
+                        children={({ pressed }) => (
+                        <Text style={{ color: pressed ? onPress : '#222'}}>
+                          More
+                        </Text>
+                      )}/>
+                    </View>
+
+                    
+
+                    
+                  </View>      
             
-          </View>
+    </View>
 
   );
 }
-
   return (
     <NavigationContainer>
       <Stack.Navigator 
@@ -301,6 +472,8 @@ function LunchScreen({ navigation }) {
   }}>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Lunch" component={LunchScreen} />
+        <Stack.Screen name="Settings" component={SettingsScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -339,7 +512,6 @@ const styles = StyleSheet.create({
     top: '55%',
     left: '1%',
     color: 'white',
-    marginRight: '0%',
     
 
   },
@@ -379,7 +551,7 @@ const styles = StyleSheet.create({
 
   },
   timeArea: {
-    marginBottom: '70%',
+    marginBottom: '75%',
     
   } ,
   lunchArea: {
@@ -465,6 +637,26 @@ const styles = StyleSheet.create({
     
 
   },
+  settingsTitle: {
+    fontSize: 25,
+    fontWeight: "bold",
+    position: 'absolute',
+    paddingLeft: 30,
+    top: 40,
+    left: 120,
+    color: 'white',
+    marginRight: '0%',
+  },
+  settingsBackButton: {
+    fontSize: 25,
+    fontWeight: "bold",
+    position: 'absolute',
+    paddingLeft: 30,
+    top: 40,
+    right: 160,
+    color: 'white',
+    marginRight: '0%',
+  }
 });
 
 
@@ -472,4 +664,3 @@ const styles = StyleSheet.create({
 
 
 export default App;
-
