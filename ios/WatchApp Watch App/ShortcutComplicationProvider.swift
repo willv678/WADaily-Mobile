@@ -6,3 +6,11 @@
 //
 
 import Foundation
+import ClockKit
+import SwiftUI
+
+final class ShortcutComplicationProvider {
+    func getShortcutComplication() -> CLKComplicationTemplate {
+        return CLKComplicationTemplateGraphicCornerCircularView(ShortcutComplication())
+    }
+}

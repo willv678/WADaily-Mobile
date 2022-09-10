@@ -7,6 +7,7 @@ import {
   FlatList,
   Pressable,
   Linking,
+  Image,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -14,6 +15,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Svg, {
   Circle,
   Line,
+  SvgUri
 } from 'react-native-svg';
 
 // GEORGE PARKS I LOVE URL!
@@ -60,14 +62,14 @@ const App = () => {
 
   useEffect(() => {
     fetchData();
-    fetch(debugURL)
+    fetch(apiURL)
       .then((response) => response.json()) 
       .then((json) => {
         setData(json.schedule);
         setTitle(json.friendlyName);
         setDescription(json.description);
       })
-      .catch((error) => alert(error)) 
+      .catch((error) => alert("Unable to connect to WADaily servers \n Check Wi-Fi and try again shortly")) 
       .finally(() => setLoading(false)); 
   }, []);
   const ItemRender = ({ title, type }) => (
@@ -113,6 +115,32 @@ const App = () => {
       />
     );
   }
+  const NoSchoolImage = () => {
+    if (title == "No School Day"){
+      return(
+        <View style={[
+          StyleSheet.absoluteFill,
+          { alignItems: 'center', justifyContent: 'center' },
+        ]}
+      >
+            
+              <>
+            <SvgUri
+              
+              
+              width="260"
+              height="185"
+              uri="https://wadaily.co/booked.svg"
+            />
+            
+          </>
+          <Text style={styles.noSchoolText}>No school today!</Text>
+          <Text>Enjoy your day off or check out another day</Text>
+        </View>
+      )
+    }
+  }
+  var footer = "DEBUG ERROR"
   const Stack = createNativeStackNavigator();
   async function getMoviesAsync() {
     try {
@@ -126,9 +154,17 @@ const App = () => {
       alert(error);
     }
   }
+  scheduleSuffix();
   
-  
-  
+
+function scheduleSuffix(){
+  if(title == "No School Day"){
+    footer = "";
+  } else {
+    footer = "Schedule";
+  }
+}
+
 function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
@@ -143,13 +179,14 @@ function HomeScreen({ navigation }) {
                 <View style={{width:400, height: '17.5%', borderRadius: 0, alignItems: 'center', justifyContent: 'center'}}>
                 <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#fbbd25', '#ee4447', '#ec4897']} style={styles.gradient}>
                     <Text style={styles.aboveTitle}>Today is a</Text>
-                    <Text numberOfLines={1} style={styles.title}>{title} Schedule</Text>
+                    <Text numberOfLines={1} style={styles.title}>{title} {footer}</Text>
                   </LinearGradient>
                 </View>
                 
                 
                   
                   <View style ={styles.timeArea}>
+                    <NoSchoolImage></NoSchoolImage>
                     <FlatList 
                       data={data}
                       scrollsToTop={true}
@@ -189,9 +226,16 @@ function HomeScreen({ navigation }) {
                       )}
                     />
                     
-
+                    
                   </View>
+                  
                   <View style = {styles.footer}>
+                  <View style = {styles.button}>
+                          <Text>   </Text>
+                    </View>
+                    <View style = {styles.button}>
+                          <Text>   </Text>
+                    </View>
                     <View style = {styles.button}>
 
                       <Pressable
@@ -210,7 +254,7 @@ function HomeScreen({ navigation }) {
                     <View style = {styles.button}>
                           <Text>   </Text>
                     </View>
-                    <View style = {styles.button}>
+                    <View style = {styles.centerButton}>
                   
                       <Pressable onPress={() => navigation.navigate('Lunch')}
                         children={({ pressed }) => (
@@ -246,6 +290,13 @@ function HomeScreen({ navigation }) {
                           More
                         </Text>
                       )}/>
+                    </View>
+                    <View style = {styles.secretText}>
+                  
+                  
+                        <Text style={{fontSize: 5, color: 'white',}}>
+                                secret
+                        </Text>
                     </View>
 
                     
@@ -298,6 +349,12 @@ function LunchScreen({ navigation }) {
                   </View>
                 
                   <View style = {styles.footer}>
+                  <View style = {styles.button}>
+                          <Text>   </Text>
+                    </View>
+                    <View style = {styles.button}>
+                          <Text>   </Text>
+                    </View>
                     <View style = {styles.button}>
 
                       <Pressable  onPress={() => navigation.navigate('Home')}
@@ -318,7 +375,7 @@ function LunchScreen({ navigation }) {
                     </View>
                     
                     
-                    <View style = {styles.button}>
+                    <View style = {styles.centerButton}>
                   
                       <Pressable onPress={() => navigation.navigate('Lunch')}
                         children={({ pressed }) => (
@@ -355,6 +412,14 @@ function LunchScreen({ navigation }) {
                         </Text>
                       )}/>
                     </View>
+                    <View style = {styles.secretText}>
+                  
+                  
+                        <Text style={{fontSize: 5, color: 'white',}}>
+                                secret
+                        </Text>
+                    </View>
+
                     
                     
                     
@@ -387,6 +452,7 @@ function SettingsScreen({ navigation }) {
                   
                 </LinearGradient>
         </View>
+        <Text>{"\n \n\n \n \n \n\n \n \n \n \n \n \n \n \n"}</Text>
         <Text> {"\n"}Made with ❤️ by Will Varner{"\n"}</Text>
         <Text style={{color: 'blue'}}
               onPress={() => Linking.openURL('https://wadaily.co/credits.html')}>
@@ -394,7 +460,7 @@ function SettingsScreen({ navigation }) {
         </Text>
 
         <Text> {"\n"}Check back later for more features!</Text>
-
+        
 
 
         <View style = {styles.footer}>
@@ -416,7 +482,7 @@ function SettingsScreen({ navigation }) {
                     <View style = {styles.button}>
                           <Text>   </Text>
                     </View>
-                    <View style = {styles.button}>
+                    <View style = {styles.centerButton}>
                   
                       <Pressable onPress={() => navigation.navigate('Lunch')}
                         children={({ pressed }) => (
@@ -454,6 +520,7 @@ function SettingsScreen({ navigation }) {
                       )}/>
                     </View>
 
+
                     
 
                     
@@ -484,13 +551,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginTop: 0,
+    paddingRight: 0,
+    maxWidth: 5000,
+    backgroundColor: "#FFFF"
 
     
   },
   gradient:{
     flex: 1,
-    paddingLeft: 200,
-    paddingRight: 200,
+    width: "100%",
+    paddingLeft: 420,
+    paddingRight: 0,
     borderRadius: 0,
     
   },
@@ -600,7 +671,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: '5%',
     marginLeft: '5%',
-    
   },
   linearGradient: {
     flex: 1,
@@ -612,8 +682,22 @@ const styles = StyleSheet.create({
 
     fontFamily: 'Gill Sans',
     textAlign: 'center',
-    margin: 5,
+    paddingTop: 5,
 
+    
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: '#ffffff',
+    backgroundColor: 'transparent',
+
+  },
+  centerButton: {
+
+    fontFamily: 'Gill Sans',
+    textAlign: 'center',
+    paddingTop: 5,
+    paddingLeft: 55,
+    paddingRight: 55,
     
     justifyContent: 'center',
     alignItems: 'center',
@@ -628,7 +712,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: "absolute",
     marginTop: '196%',
-    marginLeft: 5,
+    marginLeft: 0,
+    paddingRight: 0,
     width:'100%', 
     height: 100,
     backgroundColor: "#FFFF",
@@ -642,8 +727,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     position: 'absolute',
     paddingLeft: 30,
-    top: 40,
-    left: 120,
+    top: 45,
+    left: 130,
     color: 'white',
     marginRight: '0%',
   },
@@ -652,10 +737,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     position: 'absolute',
     paddingLeft: 30,
-    top: 40,
-    right: 160,
+    top: 45,
+    right: 360,
     color: 'white',
     marginRight: '0%',
+  },
+  noSchoolText: {
+    color: '#384050',
+    fontSize: 35,
+    fontWeight: "bold",
+    paddingTop: 10,
   }
 });
 
