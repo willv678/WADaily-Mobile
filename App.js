@@ -230,74 +230,74 @@ function HomeScreen({ navigation }) {
                   </View>
                   
                   <View style = {styles.footer}>
-                  <View style = {styles.button}>
-                          <Text>   </Text>
+                    <View style = {styles.button}>
+                            <Text>   </Text>
                     </View>
                     <View style = {styles.button}>
-                          <Text>   </Text>
+                            <Text>   </Text>
                     </View>
                     <View style = {styles.button}>
 
-                      <Pressable
-                        children={({ pressed }) => (
-                        <Text style={{ color: pressed ? onPress : '#222', fontSize: 25}}>
-                          🗓️ 
-                        </Text>
-                      )}/>
-                      <Pressable 
-                        children={({ pressed }) => (
-                        <Text style={{ color: pressed ? onPress : '#222'}}>
-                          Home
-                        </Text>
-                      )}/>
-                    </View>
-                    <View style = {styles.button}>
-                          <Text>   </Text>
-                    </View>
-                    <View style = {styles.centerButton}>
-                  
-                      <Pressable onPress={() => navigation.navigate('Lunch')}
-                        children={({ pressed }) => (
-                        
-                        <Text style={{ color: pressed ? onPress : '#222', fontSize: 25}}>
-                          🍱 
-                        </Text>
-                      )}/>
-                      <Pressable onPress={() => navigation.navigate('Lunch')}
-                        children={({ pressed }) => (
-                        <Text style={{ color: pressed ? onPress : '#222'}}>
-                          Lunch
-                        </Text>
-                      )}/>
-                    </View>
+                      <Pressable onPress={() => navigation.navigate('Home')}
+                          children={({ pressed }) => (
+                          <Text style={{ color: pressed ? onPress : '#222', fontSize: 25}}>
+                            🗓️ 
+                          </Text>
+                        )}/>
+                        <Pressable onPress={() => navigation.navigate('Home')}
+                          children={({ pressed }) => (
+                          <Text style={{ color: pressed ? onPress : '#222'}}>
+                            Home
+                          </Text>
+                        )}/>
+                      </View>
+                      <View style = {styles.button}>
+                            <Text>   </Text>
+                      </View>
+                      <View style = {styles.centerButton}>
                     
-                    <View style = {styles.button}>
-                          <Text>   </Text>
-                    </View>
+                        <Pressable onPress={() => navigation.navigate('Lunch')}
+                          children={({ pressed }) => (
+                          
+                          <Text style={{ color: pressed ? onPress : '#222', fontSize: 25}}>
+                            🍱 
+                          </Text>
+                        )}/>
+                        <Pressable onPress={() => navigation.navigate('Lunch')}
+                          children={({ pressed }) => (
+                          <Text style={{ color: pressed ? onPress : '#222'}}>
+                            Lunch
+                          </Text>
+                        )}/>
+                      </View>
+                      
+                      <View style = {styles.button}>
+                            <Text>   </Text>
+                      </View>
+                      
+                      <View style = {styles.button}>
                     
-                    <View style = {styles.button}>
-                  
-                      <Pressable onPress={() => navigation.navigate('Settings')}
-                        children={({ pressed }) => (
-                        
-                        <Text style={{ color: pressed ? onPress : '#222', fontSize: 25}}>
-                          ⚙️
-                        </Text>
-                      )}/>
-                      <Pressable onPress={() => navigation.navigate('Settings')}
-                        children={({ pressed }) => (
-                        <Text style={{ color: pressed ? onPress : '#222'}}>
-                          More
-                        </Text>
-                      )}/>
-                    </View>
-                    <View style = {styles.secretText}>
-                  
-                  
-                        <Text style={{fontSize: 5, color: 'white',}}>
-                                secret
-                        </Text>
-                    </View>
+                        <Pressable onPress={() => navigation.navigate('Settings')}
+                          children={({ pressed }) => (
+                          
+                          <Text style={{ color: pressed ? onPress : '#222', fontSize: 25}}>
+                            ⚙️
+                          </Text>
+                        )}/>
+                        <Pressable onPress={() => navigation.navigate('Settings')}
+                          children={({ pressed }) => (
+                          <Text style={{ color: pressed ? onPress : '#222'}}>
+                            More
+                          </Text>
+                        )}/>
+                      </View>
+                      <View style = {styles.secretText}>
+                    
+                    
+                          <Text style={{fontSize: 5, color: 'white',}}>
+                                  secret
+                          </Text>
+                      </View>
 
                     
 
