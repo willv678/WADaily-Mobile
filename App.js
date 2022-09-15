@@ -373,7 +373,7 @@ const App = () => {
           <View style={styles.scheduleArea}>
             <View
               style={{
-                width: 400,
+                width: vWidth,
                 height: "17.5%",
                 borderRadius: 0,
                 alignItems: "center",
@@ -471,10 +471,10 @@ const App = () => {
                   )}
                 />
               </View>
-
               <View style={styles.button}>
                 <Text> </Text>
               </View>
+              
 
               <View style={styles.button}>
                 <Pressable
@@ -542,13 +542,20 @@ const App = () => {
         <Text>{"\n \n\n \n \n \n\n \n \n \n \n \n \n \n \n"}</Text>
         <Text>
           {" "}
-          {"\n"}Made with ❤️ by Will Varner{"\n"}
+          {"\n"}Made by Will Varner{"\n"}
         </Text>
         <Text
           style={{ color: "blue" }}
           onPress={() => Linking.openURL("https://wadaily.co/credits.html")}
         >
-          View Credits @ WADaily.co
+          View Credits @ WADaily.co {"\n"}
+        </Text>
+
+        <Text
+          style={{ color: "blue" }}
+          onPress={() => Linking.openURL("https://github.com/willv678/WADaily-Mobile")}
+        >
+          Check out the project on Github!
         </Text>
 
         <Text> {"\n"}Check back later for more features!</Text>
@@ -654,6 +661,7 @@ const App = () => {
         initialRouteName="Home"
         screenOptions={{
           headerShown: false,
+          animation: 'none',
         }}
       >
         <Stack.Screen name="Home" component={HomeScreen} />
