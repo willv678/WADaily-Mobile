@@ -1,4 +1,6 @@
-# WADaily Mobile
-### A React-Native Mobile App to Take Your Schedule on the Go!
+<img src="https://wadaily.co/logo.png" height="75">
+<h1> WADaily Mobile</h1>
+WADaily Mobile is a multiplatform application built using React Native to provide mobile platforms of WADaily for IOS, Android, MacOS, and WatchOS. WADaily allows students to view their daily schedules as well as access the lunch menu and access limited time events like games, surveys, and the annual Matchmaker Survey.
 
-<img src="https://i.imgur.com/9AcDMMd.png" data-canonical-src="https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png" width="200" />
+
+ ![IOS and WatchOS Apps](https://i.ibb.co/876mNfb/Screenshots-Transparent.png)
