@@ -517,7 +517,7 @@ const App = () => {
       <View style={styles.container}>
         <View
           style={{
-            width: 400,
+            width: vWidth,
             height: "10%",
             borderRadius: 0,
             alignItems: "center",
@@ -798,6 +798,7 @@ const styles = StyleSheet.create({
     fontFamily: "Gill Sans",
     textAlign: "center",
     paddingTop: 10,
+    paddingLeft: 10,
 
     justifyContent: "center",
     alignItems: "center",
