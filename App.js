@@ -518,7 +518,7 @@ const App = () => {
         <View
           style={{
             width: vWidth,
-            height: "10%",
+            height: "18.5%",
             borderRadius: 0,
             alignItems: "center",
             justifyContent: "center",
@@ -837,7 +837,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     position: "absolute",
     paddingLeft: 30,
-    top: 45,
+    top: "50%",
     left: 130,
     color: "white",
     marginRight: "0%",
@@ -847,7 +847,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     position: "absolute",
     paddingLeft: 30,
-    top: 45,
+    top: 84,
     right: 360,
     color: "white",
     marginRight: "0%",
