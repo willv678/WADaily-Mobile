@@ -8,69 +8,27 @@ import {
   FlatList,
   Pressable,
   Linking,
-  Dimensions,
-  Image,
 } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { SFSymbol } from "react-native-sfsymbols";
-
-import { BottomFooter } from "./Footer";
-
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LinearGradient from "react-native-linear-gradient";
 import Svg, { Circle, Line, SvgUri } from "react-native-svg";
+//CSS Sheet
+import styles from "./Stylesheet";
 
-// GEORGE PARKS I LOVE URL!
-const debugURL = "https://wadaily.co/api/schedule?date=9-2-22";
-const apiURL = "https://wadaily.co/api/schedule";
-const wadailyRed = "#E9281F";
-const wadailyOffRed = "#FFFFF";
-const offWhite = "#f3f2f8";
-const onPress = "#89898c";
-const vWidth = Dimensions.get("window").width;
+//Global variables
+import './globalVar.js'
+//Components
 
-const nth = function (d) {
-  if (d > 3 && d < 21) return "th";
-  switch (d % 10) {
-    case 1:
-      return "st";
-    case 2:
-      return "nd";
-    case 3:
-      return "rd";
-    default:
-      return "th";
-  }
-};
+import LunchItems from "./components/LunchItems";
+import LunchDivider from "./components/LunchDivider";
+import NavFooter from "./components/NavFooter";
+import HomeScreen from "./pages/HomeScreen";
+import NoSchoolImage from "./components/NoSchoolImage";
+import ItemDivider from "./components/ItemDivider";
 
-const dateObj = new Date();
-const date = dateObj.getDate();
-const month = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-][dateObj.getMonth()];
-const year = dateObj.getFullYear();
 
-var dateString = month + " " + date + nth(date);
-let numDate =
-  parseInt(dateObj.getMonth() + 1) +
-  "-" +
-  dateObj.getDate() +
-  "-" +
-  dateObj.getFullYear();
-const lunchWeb = "https://wadaily.co/api/lunchList?date=";
-const apiLunchURL = lunchWeb + numDate;
-const fakeLunchURL = "https://wadaily.co/api/lunchList?date=8-19-22";
 
 const App = () => {
   const [isLoading, setLoading] = useState(true);
@@ -97,13 +55,7 @@ const App = () => {
       )
       .finally(() => setLoading(false));
   }, []);
-  const ItemRender = ({ title, type }) => (
-    <View style={styles.listItem}>
-      <Text style={type === "entry" ? styles.lunchItems : styles.lunchTitle}>
-        {title}{" "}
-      </Text>
-    </View>
-  );
+
 
   async function fetchData() {
     fetch(apiLunchURL)
@@ -116,32 +68,7 @@ const App = () => {
         console.error(error);
       });
   }
-  const ItemDivider = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "60%",
-          marginLeft: "12.5%",
-          backgroundColor: offWhite,
-        }}
-      />
-    );
-  };
-  const LunchDivider = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "80%",
-          marginTop: "1.5%",
-          marginBottom: "1.5%",
-          marginLeft: "7.5%",
-          backgroundColor: offWhite,
-        }}
-      />
-    );
-  };
+  //port this later, need to consult oracle about global variables like title
   const NoSchoolImage = () => {
     if (title == "No School Day") {
       return (
@@ -175,6 +102,7 @@ const App = () => {
     }
   }
 
+  
   function HomeScreen({ navigation }) {
     return (
       <View style={styles.container}>
@@ -258,112 +186,12 @@ const App = () => {
               />
             </View>
 
-            <View style={styles.footer}>
-              <View style={styles.button}>
-                <Pressable
-                  onPress={() => navigation.navigate("Home")}
-                  children={({ pressed }) => (
-                    <SFSymbol
-                      name="house.fill"
-                      weight=""
-                      scale="large"
-                      color="black"
-                      size={20}
-                      resizeMode="center"
-                      multicolor={false}
-                      style={{ width: 32 }}
-                    />
-                  )}
-                />
-                <Pressable
-                  onPress={() => navigation.navigate("Home")}
-                  children={({ pressed }) => (
-                    <Text
-                      style={{
-                        color: pressed ? onPress : "#222",
-                        paddingTop: 15,
-                      }}
-                    >
-                      Home
-                    </Text>
-                  )}
-                />
-              </View>
-              <View style={styles.button}>
-                <Text> </Text>
-              </View>
-              <View style={styles.centerButton}>
-                <Pressable
-                  onPress={() => navigation.navigate("Lunch")}
-                  children={({ pressed }) => (
-                    <SFSymbol
-                      name="takeoutbag.and.cup.and.straw"
-                      weight=""
-                      scale="large"
-                      color="black"
-                      size={20}
-                      resizeMode="center"
-                      multicolor={false}
-                      style={{ width: 32, height: -2 }}
-                    />
-                  )}
-                />
-                <Pressable
-                  onPress={() => navigation.navigate("Lunch")}
-                  children={({ pressed }) => (
-                    <Text
-                      style={{
-                        color: pressed ? onPress : "#222",
-                        paddingTop: 15,
-                      }}
-                    >
-                      Lunch
-                    </Text>
-                  )}
-                />
-              </View>
-
-              <View style={styles.button}>
-                <Text> </Text>
-              </View>
-
-              <View style={styles.button}>
-                <Pressable
-                  onPress={() => navigation.navigate("Settings")}
-                  children={({ pressed }) => (
-                    <SFSymbol
-                      name="gearshape"
-                      weight=""
-                      scale="large"
-                      color="black"
-                      size={20}
-                      resizeMode="center"
-                      multicolor={false}
-                      style={{ width: 32 }}
-                    />
-                  )}
-                />
-                <Pressable
-                  onPress={() => navigation.navigate("Settings")}
-                  children={({ pressed }) => (
-                    <Text
-                      style={{
-                        color: pressed ? onPress : "#222",
-                        paddingTop: 15,
-                      }}
-                    >
-                      More
-                    </Text>
-                  )}
-                />
-              </View>
-            </View>
+            <NavFooter navigation={navigation} />
           </View>
         )}
       </View>
     );
   }
-
   function LunchScreen({ navigation }) {
     return (
       <View style={styles.container}>
@@ -400,113 +228,14 @@ const App = () => {
                 }}
                 renderItem={({ item }) => (
                   <View>
-                    <ItemRender title={item.text} type={item.type} />
+                    <LunchItems title={item.text} type={item.type} />
                   </View>
                 )}
                 ItemSeparatorComponent={LunchDivider}
               />
             </View>
 
-            <View style={styles.footer}>
-              <View style={styles.button}>
-                <Pressable
-                  onPress={() => navigation.navigate("Home")}
-                  children={({ pressed }) => (
-                    <SFSymbol
-                      name="house"
-                      weight=""
-                      scale="large"
-                      color="black"
-                      size={20}
-                      resizeMode="center"
-                      multicolor={false}
-                      style={{ width: 32 }}
-                    />
-                  )}
-                />
-                <Pressable
-                  onPress={() => navigation.navigate("Home")}
-                  children={({ pressed }) => (
-                    <Text
-                      style={{
-                        color: pressed ? onPress : "#222",
-                        paddingTop: 15,
-                      }}
-                    >
-                      Home
-                    </Text>
-                  )}
-                />
-              </View>
-              <View style={styles.button}>
-                <Text> </Text>
-              </View>
-              <View style={styles.centerButton}>
-                <Pressable
-                  onPress={() => navigation.navigate("Lunch")}
-                  children={({ pressed }) => (
-                    <SFSymbol
-                      name="takeoutbag.and.cup.and.straw.fill"
-                      weight=""
-                      scale="large"
-                      color="black"
-                      size={20}
-                      resizeMode="center"
-                      multicolor={false}
-                      style={{ width: 32, height: -2 }}
-                    />
-                  )}
-                />
-                <Pressable
-                  onPress={() => navigation.navigate("Lunch")}
-                  children={({ pressed }) => (
-                    <Text
-                      style={{
-                        color: pressed ? onPress : "#222",
-                        paddingTop: 15,
-                      }}
-                    >
-                      Lunch
-                    </Text>
-                  )}
-                />
-              </View>
-              <View style={styles.button}>
-                <Text> </Text>
-              </View>
-              
-
-              <View style={styles.button}>
-                <Pressable
-                  onPress={() => navigation.navigate("Settings")}
-                  children={({ pressed }) => (
-                    <SFSymbol
-                      name="gearshape"
-                      weight=""
-                      scale="large"
-                      color="black"
-                      size={20}
-                      resizeMode="center"
-                      multicolor={false}
-                      style={{ width: 32 }}
-                    />
-                  )}
-                />
-                <Pressable
-                  onPress={() => navigation.navigate("Settings")}
-                  children={({ pressed }) => (
-                    <Text
-                      style={{
-                        color: pressed ? onPress : "#222",
-                        paddingTop: 15,
-                      }}
-                    >
-                      More
-                    </Text>
-                  )}
-                />
-              </View>
-            </View>
+            <NavFooter navigation={navigation}/>
           </View>
         )}
       </View>
@@ -560,97 +289,7 @@ const App = () => {
 
         <Text> {"\n"}Check back later for more features!</Text>
 
-        <View style={styles.footer}>
-          <View style={styles.button}>
-            <Pressable
-              onPress={() => navigation.navigate("Home")}
-              children={({ pressed }) => (
-                <SFSymbol
-                  name="house"
-                  weight=""
-                  scale="large"
-                  color="black"
-                  size={20}
-                  resizeMode="center"
-                  multicolor={false}
-                  style={{ width: 32 }}
-                />
-              )}
-            />
-            <Pressable
-              onPress={() => navigation.navigate("Home")}
-              children={({ pressed }) => (
-                <Text
-                  style={{ color: pressed ? onPress : "#222", paddingTop: 15 }}
-                >
-                  Home
-                </Text>
-              )}
-            />
-          </View>
-          <View style={styles.button}>
-            <Text> </Text>
-          </View>
-          <View style={styles.centerButton}>
-            <Pressable
-              onPress={() => navigation.navigate("Lunch")}
-              children={({ pressed }) => (
-                <SFSymbol
-                  name="takeoutbag.and.cup.and.straw"
-                  weight=""
-                  scale="large"
-                  color="black"
-                  size={20}
-                  resizeMode="center"
-                  multicolor={false}
-                  style={{ width: 32, height: -2 }}
-                />
-              )}
-            />
-            <Pressable
-              onPress={() => navigation.navigate("Lunch")}
-              children={({ pressed }) => (
-                <Text
-                  style={{ color: pressed ? onPress : "#222", paddingTop: 15 }}
-                >
-                  Lunch
-                </Text>
-              )}
-            />
-          </View>
-
-          <View style={styles.button}>
-            <Text> </Text>
-          </View>
-
-          <View style={styles.button}>
-            <Pressable
-              onPress={() => navigation.navigate("Settings")}
-              children={({ pressed }) => (
-                <SFSymbol
-                  name="gearshape.fill"
-                  weight=""
-                  scale="large"
-                  color="black"
-                  size={20}
-                  resizeMode="center"
-                  multicolor={false}
-                  style={{ width: 32 }}
-                />
-              )}
-            />
-            <Pressable
-              onPress={() => navigation.navigate("Settings")}
-              children={({ pressed }) => (
-                <Text
-                  style={{ color: pressed ? onPress : "#222", paddingTop: 15 }}
-                >
-                  More
-                </Text>
-              )}
-            />
-          </View>
-        </View>
+        <NavFooter navigation={navigation}/>
       </View>
     );
   }
@@ -671,193 +310,5 @@ const App = () => {
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    marginTop: 0,
-    paddingRight: 0,
-    maxWidth: 5000,
-    backgroundColor: "#FFFF",
-  },
-  gradient: {
-    flex: 1,
-    width: "100%",
-    paddingLeft: 0,
-    paddingRight: 0,
-    borderRadius: 0,
-  },
-
-  aboveTitle: {
-    fontSize: 23,
-    position: "absolute",
-    top: "40%",
-    left: "10%",
-    fontWeight: "400",
-    color: "white",
-  },
-  title: {
-    fontSize: 43,
-    fontWeight: "bold",
-    position: "absolute",
-    paddingLeft: 30,
-    top: "55%",
-    left: "1%",
-    color: "white",
-  },
-  description: {
-    textAlign: "center",
-    marginBottom: 18,
-    fontWeight: "200",
-
-    color: "green",
-  },
-
-  leftBar: {
-    backgroundColor: offWhite,
-    position: "absolute",
-    left: "0%",
-    top: "15%",
-    width: 25,
-    height: "100%",
-    borderRadius: 0,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  rightBar: {
-    backgroundColor: offWhite,
-    position: "absolute",
-    right: "0%",
-    top: "15%",
-    width: 25,
-    height: "100%",
-    borderRadius: 0,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  scheduleArea: {
-    marginBottom: "20%",
-    backgroundColor: "white",
-  },
-  timeArea: {
-    marginBottom: "75%",
-  },
-  lunchArea: {
-    paddingBottom: 280,
-    paddingTop: 0,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  periodName: {
-    fontSize: 32,
-    fontWeight: "600",
-    color: "#384050",
-
-    alignItems: "center",
-    justifyContent: "center",
-
-    marginRight: "15%",
-    marginLeft: "12.5%",
-  },
-  classTime: {
-    fontSize: 26,
-    fontWeight: "400",
-    color: "#384050",
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: "10%",
-    marginLeft: "12%",
-  },
-  lunchTitle: {
-    fontSize: 32,
-    fontWeight: "600",
-    textTransform: "capitalize",
-    color: "#384050",
-    marginRight: "10%",
-    marginLeft: "5%",
-    marginTop: "5%",
-  },
-  lunchItems: {
-    fontSize: 26,
-    fontWeight: "400",
-    color: "#384050",
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: "5%",
-    marginLeft: "5%",
-  },
-  linearGradient: {
-    flex: 1,
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderRadius: 5,
-  },
-  button: {
-    fontFamily: "Gill Sans",
-    textAlign: "center",
-    paddingTop: 10,
-    paddingLeft: 10,
-
-    justifyContent: "center",
-    alignItems: "center",
-    color: "#ffffff",
-    backgroundColor: "transparent",
-  },
-  centerButton: {
-    fontFamily: "Gill Sans",
-    textAlign: "center",
-    paddingTop: 5,
-    paddingLeft: 55,
-    paddingRight: 55,
-
-    justifyContent: "center",
-    alignItems: "center",
-    color: "#ffffff",
-    backgroundColor: "transparent",
-  },
-  footer: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "baseline",
-    justifyContent: "center",
-    position: "absolute",
-    marginTop: "196%",
-    marginLeft: 0,
-    paddingRight: 0,
-    width: "100%",
-    height: 100,
-    backgroundColor: "#FFFF",
-    borderTopColor: offWhite,
-    borderTopWidth: 2,
-  },
-  settingsTitle: {
-    fontSize: 35,
-    fontWeight: "bold",
-    position: "absolute",
-    paddingLeft: 10,
-    top: "50%",
-    left: 130,
-    color: "white",
-    marginRight: "0%",
-  },
-  settingsBackButton: {
-    fontSize: 35,
-    fontWeight: "bold",
-    position: "absolute",
-    paddingLeft: 30,
-    top: 83,
-    right: 360,
-    color: "white",
-    marginRight: "0%",
-  },
-  noSchoolText: {
-    color: "#384050",
-    fontSize: 35,
-    fontWeight: "bold",
-    paddingTop: 10,
-  },
-});
 
 export default App;
