@@ -8,102 +8,124 @@ import { SFSymbol } from "react-native-sfsymbols";
 
 import '../globalVar'
 
-
 export default function NavFooter({ navigation }) {
     return (
-            <View style={styles.footer}>
-                        <View style={styles.button}>
-                            <Pressable
+        <View style={styles.footer}>
+                        <Pressable
+                            style={styles.button}
                             onPress={() => navigation.navigate("Home")}
                             children={({ pressed }) => (
+                                <View style={styles.buttonBG}>
                                 <SFSymbol
                                 name="house.fill"
                                 weight=""
                                 scale="large"
                                 color="black"
-                                size={20}
+                                size={15}
                                 resizeMode="center"
                                 multicolor={false}
                                 style={{ width: 32 }}
                                 />
-                            )}
-                            />
-                            <Pressable
-                            onPress={() => navigation.navigate("Home")}
-                            children={({ pressed }) => (
                                 <Text
                                 style={{
                                     color: pressed ? onPress : "#222",
                                     paddingTop: 15,
+                                    fontSize: 10,
+                                    textAlign: "center",
                                 }}
                                 >
                                 Home
                                 </Text>
+                                </View>
                             )}
-                            />
-                        </View>
+                        />
 
-                        <View style={styles.centerButton}>
-                            <Pressable
+                        
+                        <Pressable
+                            style={[styles.centerButton, styles.button]}
                             onPress={() => navigation.navigate("Lunch")}
                             children={({ pressed }) => (
+                            <View>
                                 <SFSymbol
                                 name="takeoutbag.and.cup.and.straw"
                                 weight=""
                                 scale="large"
                                 color="black"
-                                size={20}
+                                size={15}
                                 resizeMode="center"
                                 multicolor={false}
                                 style={{ width: 32, height: -2 }}
                                 />
-                            )}
-                            />
-                            <Pressable
-                            onPress={() => navigation.navigate("Lunch")}
-                            children={({ pressed }) => (
                                 <Text
                                 style={{
                                     color: pressed ? onPress : "#222",
                                     paddingTop: 15,
+                                    fontSize: 10,
+                                    textAlign: "center",
                                 }}
                                 >
                                 Lunch
                                 </Text>
+                            </View>
                             )}
-                            />
-                        </View>
-
-                        <View style={styles.button}>
-                            <Pressable
+                        />
+                        <Pressable
+                            style={[styles.centerButton, styles.button]}
+                            onPress={() => navigation.navigate("Lunch")}
+                            children={({ pressed }) => (
+                            <View>
+                                <SFSymbol
+                                name="person"
+                                weight=""
+                                scale="large"
+                                color="black"
+                                size={17}
+                                resizeMode="center"
+                                multicolor={false}
+                                style={{ width: 60, height: -2 }}
+                                />
+                                <Text
+                                style={{
+                                    color: pressed ? onPress : "#222",
+                                    paddingTop: 15,
+                                    fontSize: 10,
+                                    textAlign: "center",
+                                }}
+                                >
+                                Account
+                                </Text>
+                            </View>
+                            )}
+                        />
+                        <Pressable
+                            style={styles.button}
                             onPress={() => navigation.navigate("Settings")}
                             children={({ pressed }) => (
+                            <View>
                                 <SFSymbol
                                 name="gearshape"
                                 weight=""
                                 scale="large"
                                 color="black"
-                                size={20}
+                                size={15}
                                 resizeMode="center"
                                 multicolor={false}
-                                style={{ width: 32 }}
+                                style={{ width: 40 }}
                                 />
-                            )}
-                            />
-                            <Pressable
-                            onPress={() => navigation.navigate("Settings")}
-                            children={({ pressed }) => (
                                 <Text
                                 style={{
                                     color: pressed ? onPress : "#222",
                                     paddingTop: 15,
+                                    fontSize: 10,
+                                    textAlign: "center",
                                 }}
                                 >
                                 More
                                 </Text>
+                            </View>
                             )}
-                            />
-                        </View>
-                        </View>
+                        />
+                    </View>
     );
   }
+  //*/}

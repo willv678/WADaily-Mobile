@@ -268,7 +268,7 @@ const App = () => {
             <Text style={styles.settingsTitle}>Settings</Text>
           </LinearGradient>
         </View>
-        <Text>{"\n \n\n \n \n \n\n \n \n \n \n \n \n \n \n"}</Text>
+        <Text>{"\n \n\n \n \n \n\n \n \n \n \n"}</Text>
         <Text>
           {" "}
           {"\n"}Made by Will Varner{"\n"}
@@ -279,7 +279,6 @@ const App = () => {
         >
           View Credits @ WADaily.co {"\n"}
         </Text>
-
         <Text
           style={{ color: "blue" }}
           onPress={() => Linking.openURL("https://github.com/willv678/WADaily-Mobile")}
