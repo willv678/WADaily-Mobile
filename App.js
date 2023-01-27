@@ -16,15 +16,12 @@ import LinearGradient from "react-native-linear-gradient";
 import Svg, { Circle, Line, SvgUri } from "react-native-svg";
 //CSS Sheet
 import styles from "./Stylesheet";
-
 //Global variables
 import './globalVar.js'
 //Components
-
 import LunchItems from "./components/LunchItems";
 import LunchDivider from "./components/LunchDivider";
 import NavFooter from "./components/NavFooter";
-import HomeScreen from "./pages/HomeScreen";
 import NoSchoolImage from "./components/NoSchoolImage";
 import ItemDivider from "./components/ItemDivider";
 
@@ -69,26 +66,6 @@ const App = () => {
       });
   }
   //port this later, need to consult oracle about global variables like title
-  const NoSchoolImage = () => {
-    if (title == "No School Day") {
-      return (
-        <View
-          style={[
-            StyleSheet.absoluteFill,
-            { alignItems: "center", justifyContent: "center" },
-          ]}
-        >
-          <SvgUri
-            width="260"
-            height="185"
-            uri="https://wadaily.co/booked.svg"
-          />
-          <Text style={styles.noSchoolText}>No school today!</Text>
-          <Text>Enjoy your day off or check out another day</Text>
-        </View>
-      );
-    }
-  };
   var footer = "DEBUG ERROR";
   const Stack = createNativeStackNavigator();
 
