@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
 
 import {
-  StyleSheet,
   Text,
   View,
   ActivityIndicator,
@@ -11,9 +10,10 @@ import {
 } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { SFSymbol } from "react-native-sfsymbols";
 import LinearGradient from "react-native-linear-gradient";
 import Svg, { Circle, Line, SvgUri } from "react-native-svg";
+
+
 //CSS Sheet
 import styles from "./Stylesheet";
 //Global variables
@@ -218,13 +218,13 @@ const App = () => {
       </View>
     );
   }
-  function SettingsScreen({ navigation }) {
+  function AccountScreen({ navigation }) {
     return (
       <View style={styles.container}>
         <View
           style={{
             width: vWidth,
-            height: "18.5%",
+            height: "10%",
             borderRadius: 0,
             alignItems: "center",
             justifyContent: "center",
@@ -236,12 +236,6 @@ const App = () => {
             colors={["#fbbd25", "#ee4447", "#ec4897"]}
             style={styles.gradient}
           >
-            <Pressable
-              onPress={() => navigation.navigate("Home")}
-              children={({ pressed }) => (
-                <Text style={styles.settingsBackButton}>←</Text>
-              )}
-            />
             <Text style={styles.settingsTitle}>Settings</Text>
           </LinearGradient>
         </View>
@@ -262,9 +256,54 @@ const App = () => {
         >
           Check out the project on Github!
         </Text>
+        
 
         <Text> {"\n"}Check back later for more features!</Text>
+        <NavFooter navigation={navigation}/>
+      </View>
+    );
+  }
+  function SettingsScreen({ navigation }) {
+    return (
+      <View style={styles.container}>
+        <View
+          style={{
+            width: vWidth,
+            height: "10%",
+            borderRadius: 0,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <LinearGradient
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            colors={["#fbbd25", "#ee4447", "#ec4897"]}
+            style={styles.gradient}
+          >
+            <Text style={styles.settingsTitle}>Settings</Text>
+          </LinearGradient>
+        </View>
+        <Text>{"\n \n\n \n \n \n\n \n \n \n \n"}</Text>
+        <Text>
+          {" "}
+          {"\n"}Made by Will Varner{"\n"}
+        </Text>
+        <Text
+          style={{ color: "blue" }}
+          onPress={() => Linking.openURL("https://wadaily.co/credits.html")}
+        >
+          View Credits @ WADaily.co {"\n"}
+        </Text>
+        <Text
+          style={{ color: "blue" }}
+          onPress={() => Linking.openURL("https://github.com/willv678/WADaily-Mobile")}
+        >
+          Check out the project on Github!
+        </Text>
+        
 
+        <Text> {"\n"}Check back later for more features!</Text>
         <NavFooter navigation={navigation}/>
       </View>
     );
@@ -281,6 +320,7 @@ const App = () => {
       >
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Lunch" component={LunchScreen} />
+        <Stack.Screen name="Account" component={AccountScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
