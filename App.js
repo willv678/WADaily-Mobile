@@ -5,15 +5,15 @@ import {
   View,
   ActivityIndicator,
   FlatList,
-  Pressable,
+  RefreshControl,
   Linking,
 } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import LinearGradient from "react-native-linear-gradient";
 import Svg, { Circle, Line, SvgUri } from "react-native-svg";
-
-
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { SFSymbol } from "react-native-sfsymbols";
 //CSS Sheet
 import styles from "./Stylesheet";
 //Global variables
@@ -21,10 +21,9 @@ import './globalVar.js'
 //Components
 import LunchItems from "./components/LunchItems";
 import LunchDivider from "./components/LunchDivider";
-import NavFooter from "./components/NavFooter";
 import NoSchoolImage from "./components/NoSchoolImage";
 import ItemDivider from "./components/ItemDivider";
-
+import NavButton from "./components/NavButton";
 
 
 const App = () => {
@@ -33,7 +32,6 @@ const App = () => {
   const [title, setTitle] = useState([]);
   const [description, setDescription] = useState([]);
   const [JSON_DATA, setJSON_DATA] = useState("");
-
   const [showIndicator, setShowIndicator] = useState(true);
 
   useEffect(() => {
@@ -78,7 +76,6 @@ const App = () => {
       footer = "Schedule";
     }
   }
-
   
   function HomeScreen({ navigation }) {
     return (
@@ -110,7 +107,7 @@ const App = () => {
             </View>
 
             <View style={styles.timeArea}>
-              <NoSchoolImage></NoSchoolImage>
+              <NoSchoolImage title={title} />
               <FlatList
                 data={data}
                 scrollsToTop={true}
@@ -163,7 +160,6 @@ const App = () => {
               />
             </View>
 
-            <NavFooter navigation={navigation} />
           </View>
         )}
       </View>
@@ -211,8 +207,6 @@ const App = () => {
                 ItemSeparatorComponent={LunchDivider}
               />
             </View>
-
-            <NavFooter navigation={navigation}/>
           </View>
         )}
       </View>
@@ -236,7 +230,7 @@ const App = () => {
             colors={["#fbbd25", "#ee4447", "#ec4897"]}
             style={styles.gradient}
           >
-            <Text style={styles.settingsTitle}>Settings</Text>
+            <Text style={styles.settingsTitle}>Profile</Text>
           </LinearGradient>
         </View>
         <Text>{"\n \n\n \n \n \n\n \n \n \n \n"}</Text>
@@ -259,7 +253,6 @@ const App = () => {
         
 
         <Text> {"\n"}Check back later for more features!</Text>
-        <NavFooter navigation={navigation}/>
       </View>
     );
   }
@@ -269,7 +262,7 @@ const App = () => {
         <View
           style={{
             width: vWidth,
-            height: "10%",
+            height: "15%",
             borderRadius: 0,
             alignItems: "center",
             justifyContent: "center",
@@ -304,25 +297,55 @@ const App = () => {
         
 
         <Text> {"\n"}Check back later for more features!</Text>
-        <NavFooter navigation={navigation}/>
       </View>
     );
   }
 
+
+  const Tab = createBottomTabNavigator();
+  function MyTabs() {
+    return (
+      <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: { paddingTop: 5 },
+        }}>
+        
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <SFSymbol name="house" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Lunch"
+          component={LunchScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <SFSymbol name="takeoutbag.and.cup.and.straw" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <SFSymbol name="gear" size={size} color={color} />
+            ),
+          }}
+        />
+        
+      </Tab.Navigator>
+    );
+  }
+  
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerShown: false,
-          animation: 'none',
-        }}
-      >
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Lunch" component={LunchScreen} />
-        <Stack.Screen name="Account" component={AccountScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
-      </Stack.Navigator>
+      <MyTabs />
     </NavigationContainer>
   );
 };

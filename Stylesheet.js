@@ -67,14 +67,12 @@ export default StyleSheet.create({
       justifyContent: "center",
     },
     scheduleArea: {
-      marginBottom: "20%",
       backgroundColor: "white",
     },
     timeArea: {
       marginBottom: "75%",
     },
     lunchArea: {
-      paddingBottom: 280,
       paddingTop: 0,
       alignItems: "center",
       justifyContent: "center",
@@ -155,7 +153,7 @@ export default StyleSheet.create({
       borderTopWidth: 2,
     },
     settingsTitle: {
-      fontSize: 20,
+      fontSize: 25,
       fontWeight: "bold",
       top: "55%",
       textAlign: "center",

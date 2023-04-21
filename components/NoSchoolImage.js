@@ -1,3 +1,8 @@
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import {SvgUri } from "react-native-svg";
+import styles from "../Stylesheet";
+
 export default function NoSchoolImage({ navigation , title}) {
     if (title == "No School Day") {
               return (
